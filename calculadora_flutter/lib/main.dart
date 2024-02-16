@@ -27,19 +27,20 @@ class _CalculadoraState extends State<Calculadora> {
   void _calcular(String operacao) {
     double numero1 = double.tryParse(_controllerNumero1.text) ?? 0.0;
     double numero2 = double.tryParse(_controllerNumero2.text) ?? 0.0;
-    double resultado;
+    double? resultado;
 
     setState(() {
       if (operacao == "Somar") {
         resultado = numero1 + numero2;
       } else if (operacao == 'Sub') {
         resultado = numero1 - numero2;
-      } else if (operacao == 'Div') {
-        resultado = numero1 / numero2;
-      } else {
+      } else if (operacao == 'Mult') {
         resultado = numero1 * numero2;
+      } else {
+        resultado = numero2 != 0 ? numero1 / numero2 : null;
       }
-      _resultado = 'O Resultado é $resultado';
+      _resultado = 
+      resultado != null ? 'O Resultado é $resultado' : 'Erro na operação';
     });
   }
 
@@ -72,32 +73,32 @@ class _CalculadoraState extends State<Calculadora> {
             ElevatedButton(
               onPressed: () => _calcular('Somar'),
               style: ElevatedButton.styleFrom(
-    primary: Colors.white70, // Cor de fundo do botão
-  ),
+                primary: Colors.white70, // Cor de fundo do botão
+              ),
               child: Text('Somar'),
             ),
             SizedBox(height: 10.0),
             ElevatedButton(
               onPressed: () => _calcular('Sub'),
               style: ElevatedButton.styleFrom(
-    primary: Colors.white70, // Cor de fundo do botão
-  ),
+                primary: Colors.white70, // Cor de fundo do botão
+              ),
               child: Text('Subtrair'),
             ),
             SizedBox(height: 10.0),
             ElevatedButton(
               onPressed: () => _calcular('Mult'),
               style: ElevatedButton.styleFrom(
-    primary: Colors.white70, // Cor de fundo do botão
-  ),
+                primary: Colors.white70, // Cor de fundo do botão
+              ),
               child: Text('Multiplicar'),
             ),
             SizedBox(height: 10.0),
             ElevatedButton(
               onPressed: () => _calcular('Div'),
               style: ElevatedButton.styleFrom(
-    primary: Colors.white70, // Cor de fundo do botão
-  ),
+                primary: Colors.white70, // Cor de fundo do botão
+              ),
               child: Text('Dividir'),
             ),
             SizedBox(height: 16.0),
