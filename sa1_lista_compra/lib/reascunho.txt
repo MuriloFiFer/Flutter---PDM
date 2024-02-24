@@ -1,0 +1,245 @@
+codigo ItemView funcional
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sa1_lista_compra/ItemController.dart';
+
+class ListaItensScreen extends StatelessWidget {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Lista de Itens'),
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: _controller,
+              decoration: InputDecoration(
+                labelText: 'Novo Item',
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    Provider.of<ItemController>(context, listen: false)
+                        .adicionarItem(_controller.text);
+                    _controller.clear();
+                  },
+                  icon: Icon(Icons.add),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Consumer<ItemController>(
+              builder: (context, model, child) {
+                return ListView.builder(
+                  itemCount: model.itens.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(model.itens[index].descricao),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () async {
+                              final confirmarExclusao = await showDialog<bool>(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Excluir item'),
+                                    content: Text('Tem certeza que deseja excluir este item?'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop(false);
+                                        },
+                                        child: Text('Cancelar'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop(true);
+                                        },
+                                        child: Text('Excluir'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+
+                              if (confirmarExclusao != null && confirmarExclusao) {
+                                final deletedItem = model.itens[index];
+                                Provider.of<ItemController>(context, listen: false).excluirItem(index);
+                                ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('${deletedItem.descricao} foi excluído.'),
+                                    action: SnackBarAction(
+                                      label: 'Desfazer',
+                                      onPressed: () {
+                                        Provider.of<ItemController>(context, listen: false)
+                                            .adicionarItem(deletedItem.descricao);
+                                      },
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                          Checkbox(
+                            value: model.itens[index].concluido,
+                            onChanged: (value) {
+                              model.marcarComoConcluido(index);
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+
+
+exclusão por gesto e botão (com bug)
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sa1_lista_compra/ItemController.dart';
+
+class ListaItensScreen extends StatelessWidget {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Lista de Itens'),
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: _controller,
+              decoration: InputDecoration(
+                labelText: 'Novo Item',
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    Provider.of<ItemController>(context, listen: false)
+                        .adicionarItem(_controller.text);
+                    _controller.clear();
+                  },
+                  icon: Icon(Icons.add),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Consumer<ItemController>(
+              builder: (context, model, child) {
+                return ListView.builder(
+                  itemCount: model.itens.length,
+                  itemBuilder: (context, index) {
+                    return Dismissible(
+                      key: Key(model.itens[index].descricao),
+                      direction: DismissDirection.endToStart,
+                      onDismissed: (direction) {
+                        _excluirItem(context, model, index);
+                      },
+                      background: Container(
+                        alignment: Alignment.centerRight,
+                        color: Colors.red,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      child: ListTile(
+                        title: Text(model.itens[index].descricao),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: () {
+                                _excluirItem(context, model, index);
+                              },
+                            ),
+                            Checkbox(
+                              value: model.itens[index].concluido,
+                              onChanged: (value) {
+                                model.marcarComoConcluido(index);
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _excluirItem(BuildContext context, ItemController model, int index) async {
+    final confirmarExclusao = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Excluir item'),
+          content: Text('Tem certeza que deseja excluir este item?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+              child: Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+              child: Text('Excluir'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirmarExclusao != null && confirmarExclusao) {
+      final deletedItem = model.itens[index];
+      Provider.of<ItemController>(context, listen: false).excluirItem(index);
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${deletedItem.descricao} foi excluído.'),
+          action: SnackBarAction(
+            label: 'Desfazer',
+            onPressed: () {
+              Provider.of<ItemController>(context, listen: false).adicionarItem(deletedItem.descricao);
+            },
+          ),
+        ),
+      );
+    }
+  }
+}
