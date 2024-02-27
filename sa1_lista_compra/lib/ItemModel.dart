@@ -1,8 +1,8 @@
-// Define o modelo para um item
+// Define o modelo para um item na lista
 class Item {
-  String descricao;
-  bool concluido;
+  String descricao; // Descrição do item
+  bool concluido; // Estado de conclusão do item
 
   // Construtor da classe Item
-  Item(this.descricao, this.concluido);
+  Item(this.descricao, this.concluido); // Construtor para inicializar a descrição e o estado de conclusão do item
 }
