@@ -31,6 +31,14 @@ class ItemController extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  // Função para editar um item existente
+  void editarItem(int indice, String novaDescricao) {
+    if (indice >= 0 && indice < _itens.length) {
+      _itens[indice].descricao = novaDescricao;
+      notifyListeners();
+    }
+  }
 }
 
 class Item {

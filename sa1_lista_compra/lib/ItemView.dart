@@ -8,10 +8,10 @@ class ListaItensScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 152, 190, 221), //cor do backgorund da tela
-      appBar: AppBar( // barra do titulo
-        backgroundColor: const Color.fromARGB(255, 206, 200, 200), // cor do background do titulo
-        title : Text('Lista de compras (adicione itens para sua lista de compras e selecione-o para concluir o item.)'),
+      backgroundColor: const Color.fromARGB(255, 152, 190, 221),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 206, 200, 200),
+        title: Text('Lista de compras (adicione itens para sua lista de compras e selecione-o para concluir o item.)'),
       ),
       body: Column(
         children: [
@@ -42,32 +42,42 @@ class ListaItensScreen extends StatelessWidget {
                       onDismissed: (direction) {
                         _excluirItemPorGesto(context, model, index);
                       },
-                      background: Container( // backgorund da ação deslizar, 
+                      background: Container(
                         alignment: Alignment.centerRight,
-                        color: Colors.red, // cor vermelha para o backgorund da ação deslizar
+                        color: Colors.red,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Icon( //criação de item ao delizar
-                            Icons.delete, //icone de delete ao deslizar
-                            color: Colors.white, //cor do item de delete
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.white,
                           ),
                         ),
                       ),
                       confirmDismiss: (direction) async {
                         return await _confirmarExclusaoPorBotao(context);
                       },
-                      child: CheckboxListTile(
+                      child: ListTile(
                         title: Text(model.itens[index].descricao),
-                        value: model.itens[index].concluido,
-                        onChanged: (value) {
-                          _marcarItemComoConcluido(context, model, index);
-                        },
-                        secondary: IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            _excluirItemPorBotao(context, model, index);
-                          },
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: () {
+                                _excluirItemPorBotao(context, model, index);
+                              },
+                            ),
+                            Checkbox(
+                              value: model.itens[index].concluido,
+                              onChanged: (value) {
+                                _marcarItemComoConcluido(context, model, index);
+                              },
+                            ),
+                          ],
                         ),
+                        onTap: () {
+                          _editarItem(context, model, index);
+                        },
                       ),
                     );
                   },
@@ -80,7 +90,6 @@ class ListaItensScreen extends StatelessWidget {
     );
   }
 
-  // Função para adicionar um novo item
   void _adicionarNovoItem(BuildContext context, String descricao) {
     if (descricao.trim().isEmpty) {
       _mostrarAlerta(context, 'Campo vazio', 'Por favor, insira um nome para o item.');
@@ -92,7 +101,6 @@ class ListaItensScreen extends StatelessWidget {
     }
   }
 
-  // Função para exibir um alerta
   void _mostrarAlerta(BuildContext context, String titulo, String mensagem) {
     showDialog(
       context: context,
@@ -113,7 +121,6 @@ class ListaItensScreen extends StatelessWidget {
     );
   }
 
-  // Função para excluir um item por gesto de deslizar
   void _excluirItemPorGesto(BuildContext context, ItemController model, int index) {
     final deletedItem = model.itens[index];
     Provider.of<ItemController>(context, listen: false).excluirItem(index);
@@ -131,7 +138,6 @@ class ListaItensScreen extends StatelessWidget {
     );
   }
 
-  // Função para confirmar a exclusão por botão
   Future<bool?> _confirmarExclusaoPorBotao(BuildContext context) async {
     return await showDialog<bool>(
       context: context,
@@ -158,7 +164,6 @@ class ListaItensScreen extends StatelessWidget {
     );
   }
 
-  // Função para excluir um item por botão
   void _excluirItemPorBotao(BuildContext context, ItemController model, int index) async {
     final confirmarExclusao = await _confirmarExclusaoPorBotao(context);
     if (confirmarExclusao != null && confirmarExclusao) {
@@ -166,8 +171,48 @@ class ListaItensScreen extends StatelessWidget {
     }
   }
 
-  // Função para marcar um item como concluído
   void _marcarItemComoConcluido(BuildContext context, ItemController model, int index) {
     model.marcarItemComoConcluido(index);
+  }
+
+  void _editarItem(BuildContext context, ItemController model, int index) {
+    final TextEditingController _editController = TextEditingController();
+    _editController.text = model.itens[index].descricao;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Editar item'),
+          content: TextField(
+            controller: _editController,
+            decoration: InputDecoration(
+              labelText: 'Nova descrição',
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                if (_editController.text.trim().isEmpty) {
+                  _mostrarAlerta(context, 'Campo vazio', 'Por favor, insira um nome para o item.');
+                } else if (model.itemJaAdicionado(_editController.text)) {
+                  _mostrarAlerta(context, 'Item já adicionado', 'Este item já foi adicionado à lista.');
+                } else {
+                  model.editarItem(index, _editController.text.trim());
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Text('Salvar'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
