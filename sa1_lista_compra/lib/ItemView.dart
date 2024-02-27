@@ -128,7 +128,7 @@ class ListaItensScreen extends StatelessWidget {
   // Função para excluir um item ao deslizar
   void _excluirItemPorGesto(BuildContext context, ItemController model, int index) {
     final deletedItem = model.itens[index];
-    Provider.of<ItemController>(context, listen: false).excluirItem(index); // Exclui o item da lista
+    Provider.of<ItemController>(context, listen: false).excluirItem(index); 
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
