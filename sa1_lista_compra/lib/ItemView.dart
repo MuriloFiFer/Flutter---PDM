@@ -134,7 +134,7 @@ class ListaItensScreen extends StatelessWidget {
       SnackBar(
         content: Text('${deletedItem.descricao} foi excluído.'), // Mensagem de confirmação de exclusão
         action: SnackBarAction(
-          label: 'Desfazer',
+          label: 'Desfazer', //botão para desfazer a exclusão
           onPressed: () {
             Provider.of<ItemController>(context, listen: false).adicionarItem(deletedItem.descricao); // Desfaz a exclusão
           },
