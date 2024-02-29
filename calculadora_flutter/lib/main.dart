@@ -73,7 +73,7 @@ class _CalculadoraState extends State<Calculadora> {
             ElevatedButton(
               onPressed: () => _calcular('Somar'),
               style: ElevatedButton.styleFrom(
-                primary: Colors.white70, // Cor de fundo do botão
+                backgroundColor: Colors.white70, // Cor de fundo do botão
               ),
               child: Text('Somar'),
             ),
@@ -81,7 +81,7 @@ class _CalculadoraState extends State<Calculadora> {
             ElevatedButton(
               onPressed: () => _calcular('Sub'),
               style: ElevatedButton.styleFrom(
-                primary: Colors.white70, // Cor de fundo do botão
+                backgroundColor: Colors.white70, // Cor de fundo do botão
               ),
               child: Text('Subtrair'),
             ),
@@ -89,7 +89,7 @@ class _CalculadoraState extends State<Calculadora> {
             ElevatedButton(
               onPressed: () => _calcular('Mult'),
               style: ElevatedButton.styleFrom(
-                primary: Colors.white70, // Cor de fundo do botão
+                backgroundColor: Colors.white70, // Cor de fundo do botão
               ),
               child: Text('Multiplicar'),
             ),
@@ -97,7 +97,7 @@ class _CalculadoraState extends State<Calculadora> {
             ElevatedButton(
               onPressed: () => _calcular('Div'),
               style: ElevatedButton.styleFrom(
-                primary: Colors.white70, // Cor de fundo do botão
+                backgroundColor: Colors.white70, // Cor de fundo do botão
               ),
               child: Text('Dividir'),
             ),
