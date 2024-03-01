@@ -1,10 +1,9 @@
 import 'package:app_carros/CarrosModel.dart';
 import 'package:flutter/material.dart';
 
-class DetalhesCarro extends StatelessWidget {
+class TelaDetalhesCarro extends StatelessWidget {
   final Carro carro;
-
-  DetalhesCarro(this.carro);
+  TelaDetalhesCarro(this.carro);
 
   @override
   Widget build(BuildContext context) {

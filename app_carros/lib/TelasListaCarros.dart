@@ -6,13 +6,14 @@ class TelaListaCarros extends StatelessWidget {
   final ControllerCarros controllerCarros;
 
   TelaListaCarros(this.controllerCarros);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Barra superior do aplicativo
       appBar: AppBar(
-        title: Text('Lista de Carros'),
+        title: Text('Meus Carros'),
       ),
+      // Corpo principal do aplicativo
       body: ListView.builder(
         itemCount: controllerCarros.listarCarros.length,
         itemBuilder: (context, index) {
@@ -23,7 +24,7 @@ class TelaListaCarros extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      DetalhesCarro(controllerCarros.listarCarros[index]),
+                      TelaDetalhesCarro(controllerCarros.listarCarros[index]),
                 ),
               );
             },
