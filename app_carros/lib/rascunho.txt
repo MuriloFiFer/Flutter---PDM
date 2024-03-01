@@ -1,39 +1,4 @@
-import 'package:app_carros/CarrosController.dart';
-import 'package:app_carros/TelaDetalheCarros.dart';
-import 'package:flutter/material.dart';
-
-class TelaListaCarros extends StatelessWidget {
-  final ControllerCarros controllerCarros;
-
-  TelaListaCarros(this.controllerCarros);
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // Barra superior do aplicativo
-      appBar: AppBar(
-        title: Text('Meus Carros'),
-      ),
-      // Corpo principal do aplicativo
-      body: ListView.builder(
-        itemCount: controllerCarros.listarCarros.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            //Exibição do texto da tarefa
-            title: Text(controllerCarros.listarCarros[index].modelo),
-            onTap: () { 
-              //Chamando a outra tela
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      TelaDetalhesCarro(controllerCarros.listarCarros[index]),
-                ),
-              );
-            },
-          );
-        },
-      ),
-     floatingActionButton: FloatingActionButton(
+floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Adicionar novo carro
           showDialog(
@@ -86,6 +51,3 @@ class TelaListaCarros extends StatelessWidget {
         },
         child: Icon(Icons.add),
       ),
-    );
-  }
-}

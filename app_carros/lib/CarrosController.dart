@@ -2,8 +2,8 @@ import 'package:app_carros/CarrosModel.dart';
 
 class ControllerCarros {
   List<Carro> _carros = [
-    Carro("Sedan", 2022, "https://example.com/sedan.jpg"),
-    Carro("Hatchback", 2021, "https://example.com/hatchback.jpg"),
+    Carro("Fiat Uno", 1992, "img/uno.jpg"),
+    Carro("WV Gol", 1996, "img/gol.jpg"),
   ];
 
   List<Carro> get listarCarros => _carros;
