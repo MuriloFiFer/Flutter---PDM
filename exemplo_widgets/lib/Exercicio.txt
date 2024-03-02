@@ -1,0 +1,6 @@
+Tarefa:
+
+Crie um aplicativo Flutter.
+No corpo do aplicativo, use o widget column para organizar linhas.
+Cada linha deve conter widgets text representando informações de uma pessoa 
+(nome,  idade,  endereço, telefone e email).
