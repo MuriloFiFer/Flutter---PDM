@@ -1,49 +1,93 @@
-// Importa o pacote de material Flutter
 import 'package:flutter/material.dart';
 
-// Função principal que inicializa a aplicação Flutter
 void main() {
-// Inicia a execução da aplicação com o widget MyApp
   runApp(MyApp());
 }
 
-// Definindo a classe MyApp que herda de StatelessWidget
 class MyApp extends StatelessWidget {
-// Método build, obrigatório em StatelessWidget, retorna a árvore de widgets da aplicação
   @override
   Widget build(BuildContext context) {
-// Retorna um MaterialApp, que é o widget raiz da aplicação Flutter
     return MaterialApp(
-// Configura a tela inicial como um Scaffold
+      title: 'Exercicio 2',
       home: Scaffold(
-// Barra superior da tela (AppBar)
         appBar: AppBar(
-// Título da barra superior
-          title: Text('Exercicio 2'),
+          title: Text('Utilização de ROW e COLUM'),      
         ),
-// Corpo da tela, composto por um Column (coluna vertical) de widgets
-        body: Column(
-          children: [
-// Texto simples como primeiro filho da coluna
-            Text('Titulo'),
-// Container contendo um Row (linha horizontal) de dois Text widgets
+        body: Padding(
+          padding: EdgeInsets.all(20.0),
+          child: Column(          
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              // Título explicativo
+              Text(
+                'Row em AZUL e Colum em VERDE ',                
+                style: TextStyle(fontSize: 20.0, color: Colors.red), // deixando o texto com a cor vermelha
+              ),
+              SizedBox(height: 20.0), // Espaço entre o título e os widgets
 
-            Container(
-              child: Row(
-                children: [
-                  SizedBox(width: 50),//espaçamento antes da coluna
-                  Text('Filho Aninhado 1'), 
-                  SizedBox(width: 50), //espaçamento entre as colunas
-                  Text('Filho Aninhado 1'),
-                  SizedBox(width: 50),
-                  Text('Filho Aninhado 2'),
+              // Primeiro Row com dois Container horizontalmente
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    color: Colors.blue,
+                    width: 100.0,
+                    height: 100.0,
+                    child: Center(
+                      child: Text(
+                        'Widget 1', // Texto do primeiro Container
+                        style: TextStyle(color: Colors.white), // Estilo do texto
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 20.0), // Espaço entre os Container
+                  Container(
+                    color: Colors.blue,
+                    width: 100.0,
+                    height: 100.0,
+                    child: Center(
+                      child: Text(
+                        'Widget 2', // Texto do segundo Container
+                        style: TextStyle(color: Colors.white), // Estilo do texto
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
+              SizedBox(height: 20.0), // Espaço entre os Row e Column
 
-// Texto simples como segundo filho da coluna
-            Text('Segundo Filho'),
-          ],
+          
+
+              // Column com dois Container verticalmente
+              Column(
+                children: <Widget>[
+                  Container(
+                    color: Colors.green,
+                    width: 200.0,
+                    height: 100.0,
+                    child: Center(
+                      child: Text(
+                        'Widget 3', // Texto do primeiro Container
+                        style: TextStyle(color: Colors.white), // Estilo do texto
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.0), // Espaço entre os Container
+                  Container(
+                    color: Colors.green,
+                    width: 200.0,
+                    height: 100.0,
+                    child: Center(
+                      child: Text(
+                        'Widget 4', // Texto do segundo Container
+                        style: TextStyle(color: Colors.white), // Estilo do texto
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
