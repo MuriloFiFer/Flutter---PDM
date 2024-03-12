@@ -73,7 +73,7 @@ Center(
         ],
       ),
       SizedBox(height: 0.5), // Espaçamento entre a imagem e o texto comum
-      Text(
+      Text(//Texto depois da imagem
         'Esta aplicação utiliza imagens da internet, caso não carrega verifique sua conexão.',
         textAlign: TextAlign.center,
       ),
