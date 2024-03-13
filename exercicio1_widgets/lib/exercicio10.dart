@@ -41,12 +41,12 @@ class _AnimationPageState extends State<AnimationPage> {
           child: AnimatedContainer(
             duration: Duration(milliseconds: 1000), // Duração da animação em milissegundos
             curve: Curves.easeInOut, // Curva de animação para suavizar o movimento
-            width: _isMoved ? 200 : 100, // Largura do widget dependendo do estado da variável
+            width: _isMoved ? 300 : 200, // Largura do widget dependendo do estado da variável
             height: _isMoved ? 200 : 100, // Altura do widget dependendo do estado da variável
             color: _isMoved ? Colors.red : Colors.blue, // Cor do widget dependendo do estado da variável
             child: Center(
               child: Text(
-                'Click Me!', // Texto do widget
+                'Clique aqui!', // Texto do widget
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.white,
