@@ -39,7 +39,7 @@ class _AnimationPageState extends State<AnimationPage> {
             });
           },
           child: AnimatedContainer(
-            duration: Duration(milliseconds: 5000), // Duração da animação em milissegundos
+            duration: Duration(milliseconds: 1000), // Duração da animação em milissegundos
             curve: Curves.easeInOut, // Curva de animação para suavizar o movimento
             width: _isMoved ? 200 : 100, // Largura do widget dependendo do estado da variável
             height: _isMoved ? 200 : 100, // Altura do widget dependendo do estado da variável
