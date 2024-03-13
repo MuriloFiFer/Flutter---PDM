@@ -1,0 +1,149 @@
+{
+    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Focalizar para exibir as descrições dos atributos existentes.
+    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "app_carros",
+            "cwd": "app_carros",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "app_carros (profile mode)",
+            "cwd": "app_carros",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "app_carros (release mode)",
+            "cwd": "app_carros",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "app_todolist",
+            "cwd": "app_todolist",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "app_todolist (profile mode)",
+            "cwd": "app_todolist",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "app_todolist (release mode)",
+            "cwd": "app_todolist",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "calculadora_flutter",
+            "cwd": "calculadora_flutter",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "calculadora_flutter (profile mode)",
+            "cwd": "calculadora_flutter",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "calculadora_flutter (release mode)",
+            "cwd": "calculadora_flutter",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "exemplo_widgets",
+            "cwd": "exemplo_widgets",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "exemplo_widgets (profile mode)",
+            "cwd": "exemplo_widgets",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "exemplo_widgets (release mode)",
+            "cwd": "exemplo_widgets",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "exercicio1_widgets",
+            "cwd": "exercicio1_widgets",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "exercicio1_widgets (profile mode)",
+            "cwd": "exercicio1_widgets",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "exercicio1_widgets (release mode)",
+            "cwd": "exercicio1_widgets",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "jogo_adivinhacao",
+            "cwd": "jogo_adivinhacao",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "jogo_adivinhacao (profile mode)",
+            "cwd": "jogo_adivinhacao",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "jogo_adivinhacao (release mode)",
+            "cwd": "jogo_adivinhacao",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "sa1_lista_compra",
+            "cwd": "sa1_lista_compra",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "sa1_lista_compra (profile mode)",
+            "cwd": "sa1_lista_compra",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "sa1_lista_compra (release mode)",
+            "cwd": "sa1_lista_compra",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
