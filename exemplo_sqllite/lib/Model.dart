@@ -16,6 +16,10 @@ class ContatoModel {
     required this.endereco,
   });
 
+  Map<String, Object?> toMap() {}
+
+  static Future<List<ContatoModel>> fromMap(Map<String, dynamic> map) {}
+
   //Mapeamento
   
 

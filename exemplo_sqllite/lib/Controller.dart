@@ -3,14 +3,16 @@ import 'package:exemplo_sqllite/Model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+
+
 class BancoDadosCrud {
   static const String DB_NOME = 'contacts.db'; // Nome do banco de dados
-  static const String TABLE_NOME = 'contacts'; // Nome da tabela
+  static const String TABELA_NOME = 'contacts'; // Nome da tabela
   static const String
       CREATE_CONTACTS_TABLE_SCRIPT = // Script SQL para criar a tabela
       "CREATE TABLE contacts(id INTEGER PRIMARY KEY," +
-          "nome TEXT, email TEXT, telefone TEXT," +
-          "endereco TEXT)";
+          "name TEXT, email TEXT, phone TEXT," +
+          "addressLine1 TEXT)";
 
 
  
@@ -30,7 +32,7 @@ class BancoDadosCrud {
     try {
       final Database db = await _getDatabase();
       await db.insert(
-          TABLE_NOME, model.toMap()); // Insere o contato no banco de dados
+          TABELA_NOME, model.toMap()); // Insere o contato no banco de dados
     } catch (ex) {
       print(ex);
       return;
@@ -43,14 +45,15 @@ class BancoDadosCrud {
     try {
       final Database db = await _getDatabase();
       final List<Map<String, dynamic>> maps =
-          await db.query(TABLE_NOME); // Consulta todos os contatos na tabela
+          await db.query(TABELA_NOME); // Consulta todos os contatos na tabela
 
 
       return List.generate(
         maps.length,
         (i) {
-          return ContatoModel.fromMap(maps[
-              i]); // Converte os resultados da consulta para objetos ContatoModel
+        return ContatoModel.fromMap(maps[
+
+              i]); // Converte os resultados da consulta para objetos ContactModel
         },
       );
     } catch (ex) {
@@ -65,7 +68,7 @@ class BancoDadosCrud {
     try {
       final Database db = await _getDatabase();
       await db.update(
-        TABLE_NOME,
+        TABELA_NOME,
         model.toMap(),
         where: "id = ?", // Condição para atualizar o contato com base no ID
         whereArgs: [model.id],
@@ -82,7 +85,7 @@ class BancoDadosCrud {
     try {
       final Database db = await _getDatabase();
       await db.delete(
-        TABLE_NOME,
+        TABELA_NOME,
         where: "id = ?", // Condição para excluir o contato com base no ID
         whereArgs: [id],
       );
@@ -92,3 +95,4 @@ class BancoDadosCrud {
     }
   }
 }
+
