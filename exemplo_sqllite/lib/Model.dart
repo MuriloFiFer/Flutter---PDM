@@ -16,11 +16,25 @@ class ContatoModel {
     required this.endereco,
   });
 
-  Map<String, Object?> toMap() {}
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,   //id=coluna do banco, id= atributo 
+      'name': nome,
+      'email': email,
+      'telefore': telefone,
+      'endereco': endereco,
+    };
+  }
 
-  static Future<List<ContatoModel>> fromMap(Map<String, dynamic> map) {}
-
-  //Mapeamento
-  
-
+    factory ContatoModel.fromMap(Map<String, dynamic> map) {
+    return ContatoModel(
+      id: map['id'],
+      nome: map['nome'],
+      email: map['email'],
+      telefone: map['telefone'],
+      endereco: map['endereco'],
+    );
+  }
 }
+
+

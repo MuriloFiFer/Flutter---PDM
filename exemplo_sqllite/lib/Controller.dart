@@ -16,7 +16,7 @@ class BancoDadosCrud {
 
 
  
-  Future<Database> _getDatabase() async {
+  Future<Database> _getDatabase() async {  //async (conexão com o banco assincrona, roda sem parar a aplicação)
     return openDatabase(
       join(
           await getDatabasesPath(), DB_NOME), // Caminho do banco de dados
@@ -43,7 +43,7 @@ class BancoDadosCrud {
   // Método para obter todos os contatos do banco de dados
   Future<List<ContatoModel>> getContacts() async {
     try {
-      final Database db = await _getDatabase();
+      final Database db = await _getDatabase();  //aguarda para estapelecer a conexão. await e getdatabase
       final List<Map<String, dynamic>> maps =
           await db.query(TABELA_NOME); // Consulta todos os contatos na tabela
 
