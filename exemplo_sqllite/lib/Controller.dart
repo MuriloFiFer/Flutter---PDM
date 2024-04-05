@@ -10,9 +10,9 @@ class BancoDadosCrud {
   static const String TABELA_NOME = 'contacts'; // Nome da tabela
   static const String
       CREATE_CONTACTS_TABLE_SCRIPT = // Script SQL para criar a tabela
-      "CREATE TABLE contacts(id INTEGER PRIMARY KEY," +
-          "name TEXT, email TEXT, phone TEXT," +
-          "addressLine1 TEXT)";
+      "CREATE TABLE IF NOT EXISTS contacts(id INTEGER PRIMARY KEY," +
+          "nome TEXT, email TEXT, telefone TEXT," +
+          "endereco TEXT)";
 
 
  
