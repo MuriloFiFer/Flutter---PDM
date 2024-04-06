@@ -63,6 +63,18 @@ class BancoDadosCrud {
   }
 
 
+//CRIAR UM MÉTODO DO TIPO BOOL
+//Future<bool> acessoInterno() async{
+  //bool x = false;
+   //final Database db = await _getDatabase();
+   //var retorno = db.rawQuery("Select * FROM nome_tabela where user = 'user' and senha = 'senha' ");  //verificar se o Queri sql esta certo -somente exemplo do Prof..
+  //if (retorno>0){
+   // x=true;
+  //}
+//return x;
+
+//}
+
   // Método para atualizar um contato no banco de dados
   Future<void> update(ContatoModel model) async {
     try {

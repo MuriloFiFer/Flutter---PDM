@@ -1,6 +1,4 @@
 class UsuarioModel {
-
-  //Atributos
   int id;
   String nome;
   String email;
@@ -8,7 +6,6 @@ class UsuarioModel {
   String endereco;
   String idade;
 
-  //Construtor
   UsuarioModel({
     required this.id,
     required this.nome,
@@ -20,16 +17,16 @@ class UsuarioModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,   //id=coluna do banco, id= atributo 
-      'name': nome,
+      'id': id,
+      'nome': nome,
       'email': email,
-      'telefore': telefone,
+      'telefone': telefone,
       'endereco': endereco,
-      'indade': idade,
+      'idade': idade,
     };
   }
 
-    factory UsuarioModel.fromMap(Map<String, dynamic> map) {
+  factory UsuarioModel.fromMap(Map<String, dynamic> map) {
     return UsuarioModel(
       id: map['id'],
       nome: map['nome'],
@@ -40,5 +37,3 @@ class UsuarioModel {
     );
   }
 }
-
-
