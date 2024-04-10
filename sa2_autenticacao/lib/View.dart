@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sa2_autenticacao/Controller.dart';
-import 'package:sa2_autenticacao/Model.dart';
+import 'package:sa2_autenticacao/UsuarioModel.dart';
 
 
 class HomePage extends StatefulWidget {

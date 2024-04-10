@@ -1,0 +1,50 @@
+Rascunho VIEW
+
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+
+class BancoDadosCrud {
+  static const String DB_NOME = 'sa2.db';
+  static const String TABELA_NOME = 'usuarios';
+  static const String CREATE_USERS_TABLE_SCRIPT =
+      "CREATE TABLE IF NOT EXISTS usuarios(id INTEGER PRIMARY KEY," +
+      "nome TEXT, senha TEXT)";
+
+  Future<Database> _getDatabase() async {
+    return openDatabase(
+      join(await getDatabasesPath(), DB_NOME),
+      onCreate: (db, version) {
+        return db.execute(CREATE_USERS_TABLE_SCRIPT);
+      },
+      version: 1,
+    );
+  }
+
+  Future<bool?> verificarUsuario(String username) async {
+    try {
+      final Database db = await _getDatabase();
+      final List<Map<String, dynamic>> result = await db.query(
+        TABELA_NOME,
+        where: "nome = ?",
+        whereArgs: [username],
+      );
+      return result.isNotEmpty;
+    } catch (e) {
+      print("Erro ao verificar usuário: $e");
+      return null;
+    }
+  }
+
+  Future<void> inserirUsuario(String username, String password) async {
+    try {
+      final Database db = await _getDatabase();
+      await db.insert(
+        TABELA_NOME,
+        {'nome': username, 'senha': password},
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    } catch (e) {
+      print("Erro ao inserir usuário: $e");
+    }
+  }
+}
