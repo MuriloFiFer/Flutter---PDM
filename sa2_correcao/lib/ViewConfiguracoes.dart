@@ -2,22 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ConfiguracoesPage extends StatefulWidget {
+  //atributo
+  final String email;
 
-  late String email;
-
-  ConfiguracoesPage(String email);
+  ConfiguracoesPage({required this.email});
 
   @override
-  _ConfiguracoesPageState createState() => _ConfiguracoesPageState(email);
+  _ConfiguracoesPageState createState() =>
+      _ConfiguracoesPageState(email: email);
 }
 
 class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
   //Atributos
-    
   late SharedPreferences _prefs;
-  bool $email_darkMode = false;
-  
-  _ConfiguracoesPageState(String email);
+  bool _darkMode = false;
+  final String email;
+
+  _ConfiguracoesPageState({required this.email})
 
   //Métodos
   @override
@@ -29,21 +30,21 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
   Future<void> _loadPreferences() async {
     _prefs = await SharedPreferences.getInstance();
     setState(() {
-      $email_darkMode = _prefs.getBool('darkMode') ?? false;
+      _darkMode = _prefs.getBool('${email}darkMode') ?? false;
     });
   }
 
-  Future<void> _mudancaDarkMode() async {
+  Future<void> _mudarDarkMode() async {
     setState(() {
-      $email_darkMode = !$email_darkMode;
+      _darkMode = !_darkMode;
     });
-    await _prefs.setBool('darkMode', $email_darkMode);
+    await _prefs.setBool('${email}darkMode', _darkMode);
   }
 
   @override
   Widget build(BuildContext context) {
     return AnimatedTheme(
-      data: $email_darkMode
+      data: _darkMode
           ? ThemeData.dark()
           : ThemeData.light(), // Define o tema com base no modo escuro
       duration: Duration(milliseconds: 500), // Define a duração da transição
@@ -52,11 +53,15 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
           title: Text('Teste de Armazenamento Interno'),
         ),
         body: Center(
-          child: Switch(
-            value: $email_darkMode,
-            onChanged: (value) {
-              _mudancaDarkMode();
-            },
+          child: Column(
+            children: [
+              Switch(
+                value: _darkMode,
+                onChanged: (value) {
+                  _mudarDarkMode();
+                },
+              ),
+            ],
           ),
         ),
       ),
