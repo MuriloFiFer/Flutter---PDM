@@ -1,22 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ConfiguracoesScreen extends StatelessWidget {
-  late String email;
-
-  ConfiguracoesScreen({required String email});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: "Teste Shared Preferences",
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(brightness: Brightness.light),
-        darkTheme: ThemeData(brightness: Brightness.dark),
-        home: ConfiguracoesPage(email));
-  }
-}
-
 class ConfiguracoesPage extends StatefulWidget {
 
   late String email;
