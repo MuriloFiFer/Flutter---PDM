@@ -18,10 +18,10 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
   bool _darkMode = false;
   final String email;
 
-  _ConfiguracoesPageState({required this.email})
+  _ConfiguracoesPageState({required this.email});
 
   //Métodos
-  @override
+     @override
   void initState() {
     super.initState();
     _loadPreferences();
