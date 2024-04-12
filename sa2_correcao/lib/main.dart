@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "SA2",
       debugShowCheckedModeBanner: false, //tira faixa de debug(faixa zebrada)
-      home: LoginPage,
+      home: LoginScreen()
       );
   }
 }
