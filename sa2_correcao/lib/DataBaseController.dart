@@ -7,8 +7,10 @@ class BancoDadosCrud {
   static const String TABLE_NOME = 'users'; // Nome da tabela
   static const String
       SCRIPT_CRIACAO_TABELA = // Script SQL para criar a tabela
-      "CREATE TABLE IF NOT EXISTS users(id SERIAL PRIMARY KEY," +
-          "nome TEXT, email TEXT, senha TEXT";
+      "CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY," +
+          "nome TEXT, " +
+          "email TEXT, " +
+          "senha TEXT)";
 
   Future<Database> _chamarBanco() async {
     return openDatabase(
@@ -33,13 +35,13 @@ class BancoDadosCrud {
     }
   }
 
-  // Método para obter o usuario do banco de dados
+  // Método para buscar o user do banco de dados
   Future<User?> getUser(String email, String senha) async {
     try {
       final Database db = await _chamarBanco();
       final List<Map<String, dynamic>> maps =
           await db.query(TABLE_NOME,
-          where: 'email = ? AND senha =?',
+          where: 'email = ? AND senha = ?',
           whereArgs: [email,senha]
           ); // Consulta todos os contatos na tabela
 
@@ -48,34 +50,32 @@ class BancoDadosCrud {
       }else{
         return null;
       }
-      }
-     catch (ex) {
+    } catch (ex) {
       print(ex);
       return null;
     }
   }
 
   //CRIAR UM MÉTODO DO TIPO BOOL
-  Future<bool> existisUser(String email, String senha) async {
+  Future<bool> existsUser(String email, String senha) async {
     bool acessoPermitido = false;
     try{
-      final Database db = await _chamarBanco();
-      final List<Map<String, dynamic>> maps =
+    final Database db = await _chamarBanco();
+    final List<Map<String, dynamic>> maps =
           await db.query(TABLE_NOME,
-          where: 'email = ? AND senha =?',
+          where: 'email = ? AND senha = ?',
           whereArgs: [email,senha]
           ); // Consulta todos os contatos na tabela
 
       if (maps.isNotEmpty){
-       acessoPermitido = true;
-       return acessoPermitido;
+        acessoPermitido = true;
+        return acessoPermitido;
       }else{
         return acessoPermitido;
       }
-      }
-     catch (ex) {
+    } catch (ex) {
       print(ex);
       return acessoPermitido;
-  }
+    }
   }
 }

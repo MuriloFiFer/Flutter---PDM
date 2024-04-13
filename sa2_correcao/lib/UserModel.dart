@@ -1,21 +1,17 @@
+class User {
+  //atributos
+  String nome;
+  String email;
+  String senha;
+  //construtor
+  User({required this.nome, 
+        required this.email,
+        required this.senha});
 
-
-class User{
-  //Atributos
-   String nome;
-   String email;
-   String senha;
-  //Construtor
-  User ({
-    required this.nome,
-    required this.email,
-    required this.senha });
-
-    
   // Método para criar um usuário a partir de um mapa
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      nome: map['name'],
+      nome: map['nome'],
       email: map['email'],
       senha: map['senha'],
     );
@@ -30,7 +26,3 @@ class User{
     };
   }
 }
-
-
-
-
