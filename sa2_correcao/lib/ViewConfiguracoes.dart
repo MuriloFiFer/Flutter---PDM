@@ -1,41 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// Tela de configurações
 class ConfiguracoesPage extends StatefulWidget {
-  //atributo
-  final String email;
+  final String email; // Email do usuário
 
-  ConfiguracoesPage({required this.email});
+  ConfiguracoesPage({required this.email}); // Construtor
 
   @override
   _ConfiguracoesPageState createState() =>
-      _ConfiguracoesPageState(email: email);
+      _ConfiguracoesPageState(email: email); // Estado da tela de configurações
 }
 
+// Estado da tela de configurações
 class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
-  //Atributos
-  late SharedPreferences _prefs;
-  bool _darkMode = false;
-  final String email;
-  String _idioma = 'pt-br';
+  late SharedPreferences _prefs; // Instância de SharedPreferences para armazenar preferências
+  bool _darkMode = false; // Estado do modo escuro
+  final String email; // Email do usuário
+  String _idioma = 'pt-br'; // Idioma selecionado
 
-  _ConfiguracoesPageState({required this.email});
+  _ConfiguracoesPageState({required this.email}); // Construtor
 
-  //Métodos
   @override
   void initState() {
     super.initState();
-    _loadPreferences();
+    _loadPreferences(); // Carrega as preferências do usuário ao inicializar a tela
   }
 
+  // Carrega as preferências do usuário
   Future<void> _loadPreferences() async {
     _prefs = await SharedPreferences.getInstance();
     setState(() {
-      _darkMode = _prefs.getBool('${email}darkMode') ?? false;    //O simbilo  "$"  concatena 
-      _idioma = _prefs.getString('${email}SelIdioma') ?? 'pt-br';
+      _darkMode = _prefs.getBool('${email}darkMode') ?? false; // Obtém o estado do modo escuro
+      _idioma = _prefs.getString('${email}SelIdioma') ?? 'pt-br'; // Obtém o idioma selecionado
     });
   }
 
+  // Alterna o estado do modo escuro e salva a preferência
   Future<void> _mudarDarkMode() async {
     setState(() {
       _darkMode = !_darkMode;
@@ -43,9 +44,10 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
     await _prefs.setBool('${email}darkMode', _darkMode);
   }
 
+  // Muda o idioma selecionado e salva a preferência
   Future<void> _mudarIdoma() async {
     setState(() {
-      //api de mudança de idioma
+      // API de mudança de idioma
     });
     await _prefs.setString('${email}SelIdioma', _idioma);
   }
@@ -59,36 +61,36 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
       duration: Duration(milliseconds: 500), // Define a duração da transição
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Teste de Armazenamento Interno'),
+          title: Text('Teste de Armazenamento Interno'), // Título da tela
         ),
         body: Center(
           child: Column(
             children: [
-              Text("Selecione o Modo Escuro"),
+              Text("Selecione o Modo Escuro"), // Texto para selecionar o modo escuro
               Switch(
                 value: _darkMode,
                 onChanged: (value) {
-                  _mudarDarkMode();
+                  _mudarDarkMode(); // Alterna o modo escuro
                 },
               ),
-              Text("Selecione o Idioma"),
+              Text("Selecione o Idioma"), // Texto para selecionar o idioma
               DropdownButton<String>(
                 value: _idioma,
                 onChanged: (value) {
-                  _mudarIdoma();
+                  _mudarIdoma(); // Muda o idioma selecionado
                 },
                 items: <DropdownMenuItem<String>>[
                   DropdownMenuItem(
                     value: 'pt-br',
-                    child: Text('Português (Brasil)'),
+                    child: Text('Português (Brasil)'), // Opção para o idioma Português (Brasil)
                   ),
                   DropdownMenuItem(
                     value: 'en-us',
-                    child: Text('Inglês (EUA)'),
+                    child: Text('Inglês (EUA)'), // Opção para o idioma Inglês (EUA)
                   ),
                   DropdownMenuItem(
                     value: 'es-ar',
-                    child: Text('Espanhol (Argentina)'),
+                    child: Text('Espanhol (Argentina)'), // Opção para o idioma Espanhol (Argentina)
                   ),
                 ],
               )
