@@ -1,0 +1,17 @@
+Tela inicial
+<usuario>
+<senha>
+botão acessar
+
+Tela interna
+Lista de tarefas <shared preferences>
+
+
+bibliotecas necessarias
+
+flutter pub add path
+
+flutter pub add sqflite
+
+flutter pub add shared_preferences
+
