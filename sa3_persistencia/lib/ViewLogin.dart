@@ -100,9 +100,9 @@ class _LoginFormState extends State<LoginForm> {
                   }
                   return null;
                 },
-                inputFormatters: [
-                  FilteringTextInputFormatter.deny(RegExp(r'[0-9]')), // Impede a inserção de números
-                ],
+                //inputFormatters: [
+                  //FilteringTextInputFormatter.deny(RegExp(r'[0-9]')), // Impede a inserção de números
+               // ],
               ),
               SizedBox(height: 20),
               TextFormField(

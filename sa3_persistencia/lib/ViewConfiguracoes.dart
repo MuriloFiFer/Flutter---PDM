@@ -70,12 +70,6 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
                       _removerTarefa(index); // Remove a tarefa ao ser pressionado o botão de exclusão
                     },
                   ),
-                   trailing: IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () {
-                      _removerTarefa(index); // Remove a tarefa ao ser pressionado o botão de exclusão
-                    },
-                  ),
                 );
               },
             ),
@@ -109,3 +103,5 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
     );
   }
 }
+
+
