@@ -14,7 +14,8 @@ class ConfiguracoesPage extends StatefulWidget {
 
 // Estado da tela de configurações
 class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
-  late SharedPreferences _prefs; // Instância de SharedPreferences para armazenar preferências
+  late SharedPreferences
+      _prefs; // Instância de SharedPreferences para armazenar preferências
   final String email; // Email do usuário
   List<String> _tarefas = []; // Lista de tarefas
 
@@ -30,7 +31,8 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
   Future<void> _loadPreferences() async {
     _prefs = await SharedPreferences.getInstance();
     setState(() {
-      _tarefas = _prefs.getStringList('${email}Tarefas') ?? []; // Obtém a lista de tarefas
+      _tarefas = _prefs.getStringList('${email}Tarefas') ??
+          []; // Obtém a lista de tarefas
     });
   }
 
@@ -50,6 +52,22 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
     await _prefs.setStringList('${email}Tarefas', _tarefas);
   }
 
+  // Atualiza uma tarefa da lista e atualiza a preferência
+  Future<void> _atualizarTarefa(int index, String novaTarefa) async {
+    setState(() {
+      _tarefas[index] = novaTarefa;
+    });
+    await _prefs.setStringList('${email}Tarefas', _tarefas);
+  }
+
+  //Marca tarefa como concluída
+  Future<void> _marcarComoConcluida(int index, bool concluida) async {
+    setState(() {
+      _tarefas[index] = _tarefas[index] + (concluida ? ' (Concluída)' : '');
+    });
+    await _prefs.setStringList('${email}Tarefas', _tarefas);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,11 +82,60 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text(_tarefas[index]),
-                  trailing: IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () {
-                      _removerTarefa(index); // Remove a tarefa ao ser pressionado o botão de exclusão
-                    },
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.edit),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              TextEditingController controller =
+                                  TextEditingController(text: _tarefas[index]);
+                              return AlertDialog(
+                                title: Text('Editar Tarefa'),
+                                content: TextField(
+                                  controller: controller,
+                                  autofocus: true,
+                                  decoration: InputDecoration(
+                                    labelText: 'Editar Tarefa',
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('Cancelar'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      _atualizarTarefa(index, controller.text);
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('Salvar'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          _removerTarefa(
+                              index); // Remove a tarefa ao ser pressionado o botão de exclusão
+                        },
+                      ),
+                      Checkbox(
+                        value: _tarefas[index].contains('(Concluída)'),
+                        onChanged: (value) {
+                          _marcarComoConcluida(index, value ?? false);
+                        },
+                      ),
+                    ],
                   ),
                 );
               },
@@ -82,7 +149,8 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
                   child: TextField(
                     decoration: InputDecoration(labelText: 'Nova Tarefa'),
                     onSubmitted: (novaTarefa) {
-                      _adicionarTarefa(novaTarefa); // Adiciona a nova tarefa à lista
+                      _adicionarTarefa(
+                          novaTarefa); // Adiciona a nova tarefa à lista
                     },
                   ),
                 ),
@@ -103,5 +171,3 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
     );
   }
 }
-
-
