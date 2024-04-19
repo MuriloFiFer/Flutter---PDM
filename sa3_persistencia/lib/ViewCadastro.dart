@@ -25,9 +25,12 @@ class CadastroForm extends StatefulWidget {
 
 class _CadastroFormState extends State<CadastroForm> {
   final _formKey = GlobalKey<FormState>(); // Chave global do formulário
-  TextEditingController _nomeController = TextEditingController(); // Controlador do campo de nome
-  TextEditingController _emailController = TextEditingController(); // Controlador do campo de e-mail
-  TextEditingController _senhaController = TextEditingController(); // Controlador do campo de senha
+  TextEditingController _nomeController =
+      TextEditingController(); // Controlador do campo de nome
+  TextEditingController _emailController =
+      TextEditingController(); // Controlador do campo de e-mail
+  TextEditingController _senhaController =
+      TextEditingController(); // Controlador do campo de senha
 
   // Função para cadastrar um novo usuário
   void cadastrarUsuario(BuildContext context) async {
@@ -35,6 +38,28 @@ class _CadastroFormState extends State<CadastroForm> {
     String name = _nomeController.text; // Obtém o nome inserido
     String email = _emailController.text; // Obtém o e-mail inserido
     String password = _senhaController.text; // Obtém a senha inserida
+
+    // Verifica se o email já está registrado
+    bool emailRegistrado = await _verificarEmailRegistrado(email);
+    if (emailRegistrado) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Este e-mail já está registrado. Por favor, tente outro.'),
+        ),
+      );
+      return;
+    }
+
+    // Verifica se o nome já está registrado
+    bool nomeRegistrado = await _verificarNomeRegistrado(name);
+    if (nomeRegistrado) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Este nome já está sendo usado. Por favor, tente outro.'),
+        ),
+      );
+      return;
+    }
 
     // Cria um novo usuário com os valores inseridos
     User user = User(nome: name, email: email, senha: password);
@@ -57,6 +82,19 @@ class _CadastroFormState extends State<CadastroForm> {
       );
     }
   }
+
+// Função para verificar se o email já está registrado no banco de dados
+Future<bool> _verificarEmailRegistrado(String email) async {
+  BancoDadosCrud bancoDados = BancoDadosCrud();
+  return await bancoDados.existsUser(email);
+}
+
+ // Função para verificar se o nome já está registrado no banco de dados
+  Future<bool> _verificarNomeRegistrado(String name) async {
+    BancoDadosCrud bancoDados = BancoDadosCrud();
+    return await bancoDados.existsUserByName(name);
+  }
+
 
   @override
   Widget build(BuildContext context) {

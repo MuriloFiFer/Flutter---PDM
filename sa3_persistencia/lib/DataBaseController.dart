@@ -21,7 +21,7 @@ class BancoDadosCrud {
         return db.execute(
             SCRIPT_CRIACAO_TABELA); // Executa o script de criação da tabela quando o banco é criado
       },
-      version: 2, // Versão do banco de dados   
+      version: 2, // Versão do banco de dados
     );
   }
 
@@ -41,15 +41,13 @@ class BancoDadosCrud {
   Future<User?> getUser(String email, String senha) async {
     try {
       final Database db = await _chamarBanco();
-      final List<Map<String, dynamic>> maps =
-          await db.query(TABLE_NOME,
+      final List<Map<String, dynamic>> maps = await db.query(TABLE_NOME,
           where: 'email = ? AND senha = ?',
-          whereArgs: [email,senha]
-          ); // Consulta o usuário na tabela pelo email e senha
+          whereArgs: [email, senha]); // Consulta o usuário na tabela pelo email e senha
 
-      if (maps.isNotEmpty){
+      if (maps.isNotEmpty) {
         return User.fromMap(maps.first); // Retorna o usuário encontrado
-      }else{
+      } else {
         return null; // Retorna nulo se o usuário não for encontrado
       }
     } catch (ex) {
@@ -58,26 +56,37 @@ class BancoDadosCrud {
     }
   }
 
-  // Método para verificar se um usuário existe no banco de dados
-  Future<bool> existsUser(String email, String senha) async {
-    bool acessoPermitido = false; // Variável para indicar se o acesso é permitido ou não
-    try{
+  // Método para verificar se um usuário com o mesmo email já existe no banco de dados
+Future<bool> existsUser(String email) async {
+  try {
     final Database db = await _chamarBanco();
-    final List<Map<String, dynamic>> maps =
-          await db.query(TABLE_NOME,
-          where: 'email = ? AND senha = ?',
-          whereArgs: [email,senha]
-          ); // Consulta o usuário na tabela pelo email e senha
+    final List<Map<String, dynamic>> maps = await db.query(
+      TABLE_NOME,
+      where: 'email = ?',
+      whereArgs: [email],
+    );
+    return maps.isNotEmpty; // Retorna true se o usuário já existe, senão retorna false
+  } catch (ex) {
+    print(ex);
+    return false; // Em caso de erro, retorna false
+  }
+}
 
-      if (maps.isNotEmpty){
-        acessoPermitido = true; // Define que o acesso é permitido se o usuário for encontrado
-        return acessoPermitido;
-      }else{
-        return acessoPermitido; // Retorna falso se o usuário não for encontrado
-      }
+
+  // Método para verificar se um usuário com o nome especificado já está registrado no banco de dados
+  Future<bool> existsUserByName(String name) async {
+    try {
+      final Database db = await _chamarBanco();
+      final List<Map<String, dynamic>> maps = await db.query(
+        TABLE_NOME,
+        where: 'nome = ?',
+        whereArgs: [name],
+      ); // Consulta o usuário na tabela pelo nome
+
+      return maps.isNotEmpty; // Retorna true se o usuário for encontrado, false caso contrário
     } catch (ex) {
       print(ex);
-      return acessoPermitido;
+      return false;
     }
   }
 }
