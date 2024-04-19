@@ -60,7 +60,7 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
     await _prefs.setStringList('${email}Tarefas', _tarefas);
   }
 
-  //Marca tarefa como concluída
+  // Marca tarefa como concluída
   Future<void> _marcarComoConcluida(int index, bool concluida) async {
     setState(() {
       _tarefas[index] = _tarefas[index] + (concluida ? ' (Concluída)' : '');
@@ -85,6 +85,7 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      // Botão de edição
                       IconButton(
                         icon: Icon(Icons.edit),
                         onPressed: () {
@@ -122,6 +123,7 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
                           );
                         },
                       ),
+                      // Botão de exclusão
                       IconButton(
                         icon: Icon(Icons.delete),
                         onPressed: () {
@@ -129,6 +131,7 @@ class _ConfiguracoesPageState extends State<ConfiguracoesPage> {
                               index); // Remove a tarefa ao ser pressionado o botão de exclusão
                         },
                       ),
+                      // Checkbox para marcar como concluída
                       Checkbox(
                         value: _tarefas[index].contains('(Concluída)'),
                         onChanged: (value) {

@@ -31,22 +31,29 @@ class _CadastroFormState extends State<CadastroForm> {
 
   // Função para cadastrar um novo usuário
   void cadastrarUsuario(BuildContext context) async {
+    // Obtém os valores inseridos nos campos
     String name = _nomeController.text; // Obtém o nome inserido
     String email = _emailController.text; // Obtém o e-mail inserido
     String password = _senhaController.text; // Obtém a senha inserida
 
-    User user = User(nome: name, email: email, senha: password); // Cria um novo usuário
+    // Cria um novo usuário com os valores inseridos
+    User user = User(nome: name, email: email, senha: password);
 
-    BancoDadosCrud bancoDados = BancoDadosCrud(); // Instância do controlador do banco de dados
+    // Instância do controlador do banco de dados
+    BancoDadosCrud bancoDados = BancoDadosCrud();
     try {
-      bancoDados.create(user); // Insere o usuário no banco de dados
+      // Insere o usuário no banco de dados
+      bancoDados.create(user);
+      // Exibe um aviso de sucesso
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Usuário cadastrado com sucesso!')), // Exibe um aviso de sucesso
+        SnackBar(content: Text('Usuário cadastrado com sucesso!')),
       );
-      Navigator.pop(context); // Fecha a tela de cadastro e retorna para a tela anterior (provavelmente a de login)
+      // Fecha a tela de cadastro e retorna para a tela anterior (provavelmente a de login)
+      Navigator.pop(context);
     } catch (e) {
+      // Em caso de erro, exibe um aviso de erro
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erro ao cadastrar usuário: $e')), // Exibe um aviso de erro
+        SnackBar(content: Text('Erro ao cadastrar usuário: $e')),
       );
     }
   }
@@ -61,14 +68,16 @@ class _CadastroFormState extends State<CadastroForm> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              // Título do formulário
               Text(
-                'Cadastro', // Título do formulário
+                'Cadastro',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(height: 20),
+              // Campo de nome
               TextFormField(
                 controller: _nomeController,
                 decoration: InputDecoration(labelText: 'Nome'), // Rótulo do campo de nome
@@ -83,6 +92,7 @@ class _CadastroFormState extends State<CadastroForm> {
                 },
               ),
               SizedBox(height: 20),
+              // Campo de e-mail
               TextFormField(
                 controller: _emailController,
                 decoration: InputDecoration(labelText: 'E-mail'), // Rótulo do campo de e-mail
@@ -98,6 +108,7 @@ class _CadastroFormState extends State<CadastroForm> {
                 },
               ),
               SizedBox(height: 20),
+              // Campo de senha
               TextFormField(
                 controller: _senhaController,
                 decoration: InputDecoration(labelText: 'Senha'), // Rótulo do campo de senha
@@ -110,9 +121,11 @@ class _CadastroFormState extends State<CadastroForm> {
                 },
               ),
               SizedBox(height: 20),
+              // Botão de cadastro
               ElevatedButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) { // Se o formulário for válido, cadastra o usuário
+                  // Se o formulário for válido, cadastra o usuário
+                  if (_formKey.currentState!.validate()) {
                     cadastrarUsuario(context);
                   }
                 },
