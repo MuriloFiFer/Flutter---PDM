@@ -6,6 +6,15 @@ class Produto{
   //Contrutor
   Produto({required this.nome, required this.preco, required this.categoria});
   //Métodos(fromJson / toJson)
+factory Produto.fromJson(Map<String, dynamic> json) {
+    return Produto(
+      nome: json['nome'],
+      preco: json['preco'],
+      categoria: json['categoria'],
+    );
+  }
+
+
   Map<String,dynamic> toJson(){
     return {
     'nome': nome,
@@ -14,13 +23,6 @@ class Produto{
     };
   }
 
-factory Produto.fromJson(Map<String, dynamic> json) {
-    return Produto(
-      nome: json['nome'],
-      preco: json['preco'],
-      categoria: json['categoria'],
-    );
-  }
 
 
 }
