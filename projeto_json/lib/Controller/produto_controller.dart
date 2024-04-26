@@ -16,7 +16,18 @@ Future<void> salvarJson() async {
   final file = File('produtos.json');
   final jsonList = produtos.map((produto) => produto.toJson()).toList();
   await file.writeAsString(jsonEncode(jsonList));
+}
 
+//Carregar produtos do Json
+Future<void> carregarJson() async {
+  try {
+    final file = File('produtos.json');
+    final jsonList = jsonDecode(await file.readAsString());  
+    _produtos = jsonList.map<Produto>((json) => Produto.fromJson(json)).toList();
+  } catch (e) {
+    //caso o arquivo não exista ou ocorra um erro na leitura , não faz nada
+    _produtos = [];
 
+}
 }
 }
