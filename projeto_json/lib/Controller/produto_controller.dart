@@ -10,7 +10,10 @@ List<Produto> _produtos = []; //privado
 List<Produto> get produtos {
   return _produtos;
 }
-
+//metodo set
+  set produtos(List<Produto> produtos) {
+    _produtos = produtos;
+  }
 //salvar produtos no Jsoin
 Future<void> salvarJson() async {
   final file = File('produtos.json');
@@ -19,15 +22,15 @@ Future<void> salvarJson() async {
 }
 
 //Carregar produtos do Json
-Future<void> carregarJson() async {
+Future<List<Produto>> carregarJson() async {
   try {
     final file = File('produtos.json');
     final jsonList = jsonDecode(await file.readAsString());  
-    _produtos = jsonList.map<Produto>((json) => Produto.fromJson(json)).toList();
+    produtos = jsonList.map<Produto>((json) => Produto.fromJson(json)).toList();
   } catch (e) {
     //caso o arquivo não exista ou ocorra um erro na leitura , não faz nada
-    _produtos = [];
-
+    produtos = [];
 }
+return produtos;
 }
 }
