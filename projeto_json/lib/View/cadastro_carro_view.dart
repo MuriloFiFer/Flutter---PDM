@@ -25,6 +25,13 @@ class _CarroCadastroScreenState extends State<CarroCadastroScreen> {
 
   File? _imagemSelecionada;
 
+  CarrosController _controller = CarrosController();
+
+  @override
+  void initState() {
+    _controller.loadCarrosFromFile();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -171,7 +178,6 @@ class _CarroCadastroScreenState extends State<CarroCadastroScreen> {
         valor: double.parse(_valorController.text));
   }
 
-  CarrosController _controller = new CarrosController();
 
   void _limparValores() {
     _placaController.clear();
@@ -182,23 +188,23 @@ class _CarroCadastroScreenState extends State<CarroCadastroScreen> {
     _descricaoController.clear();
     _valorController.clear();
     _imagemSelecionada = null;
-  }
-
-  void _apagarCampos() {
-    _placaController.text = "";
-    _modeloController.text = "";
-    _marcaController.text = "";
-    _anoController.text = "";
-    _corController.text = "";
-    _descricaoController.text = "";
-    _valorController.text = "";
+    setState(() {});
   }
 
   void _cadastrarCarro() {
+    // verificação
+    
     //cadastro
     _controller.addCarro(criarObjeto());
+    //salvar
+    _controller.saveCarrosToFile();
     //limpar os campos
     _limparValores();
-    _apagarCampos();    
+    //SnackBar
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Carro Cadastrado com Sucesso"),
+      ),
+    );
   }
 }
