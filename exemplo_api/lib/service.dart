@@ -14,6 +14,7 @@ class WeatherService {
     final url = Uri.parse('$baseUrl/weather?q=$city&appid=$apiKey');
     final response = await http.get(url);
     if(response.statusCode == 200){
+      print(response.body);
       return json.decode(response.body);
     } else{
       throw Exception('Failed to load weather data');
