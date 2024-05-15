@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'screen.dart';
 
-void main(){
+void main() {
   runApp(const MyApp());
 }
 
@@ -12,11 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Exemplo API",
+      title: 'weather forecast',
       theme: ThemeData(
-        primarySwatch: Colors.blue
+        primarySwatch: Colors.blue,
       ),
-      home: WeatherScreen()
+      home: WeatherScreen(),
     );
   }
 }
