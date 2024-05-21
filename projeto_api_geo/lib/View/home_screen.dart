@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:projeto_api_geo/Controller/weather_controller.dart';
 import 'package:projeto_api_geo/Service/weather_service_api.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,8 +11,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Map<String, dynamic> _weatherData = {};
-  final WeatherService _weatherService = WeatherService();
+  final WeatherController _controller = WeatherController();
 
   @override
   void initState() {
@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future <void> _getWeatherInit() async{
     try {
       Position position = await Geolocator.getCurrentPosition();
-      _weatherData = await _weatherService.getWeatherByLocation(
+      _controller.getWeatherbyLocation(
         position.latitude, position.longitude
         );
       setState(() {
@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                _weatherData.isEmpty
+                    _controller.weatherList.isEmpty
                     ? Row(
                         children: [
                           const Text("Erro de Conexão"),
@@ -74,12 +74,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     : Column(
                         children: [
-                          Text(_weatherData["name"]),
+                          Text(_controller.weatherList.last.name),
                           const SizedBox(height: 10),
-                          Text(_weatherData["weather"][0]["description"]),
+                          Text(_controller.weatherList.last.main),
                           const SizedBox(height: 10),
-                          Text(_weatherData["main"]["temp"].toString()),
+                          Text(_controller.weatherList.last.description),
                           const SizedBox(height: 10),
+                          Text((_controller.weatherList.last.temp-273).toStringAsFixed(2)),
+                          IconButton(
+                            icon: const Icon(Icons.refresh),
+                            onPressed: () {
+                              _getWeatherInit();
+                            },
+                          )
                         ],
                       )
               ],

@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_api_geo/View/favorito_screen.dart';
-
-import 'View/historic_screen.dart';
 import 'View/home_screen.dart';
 
 void main() {
@@ -18,8 +15,7 @@ class MyApp extends StatelessWidget {
       home: HomeScreen(),
       debugShowCheckedModeBanner: false,
       routes:{
-        '/historico': (context) => HistoricoScreen(),
-        '/favorito': (context) => FavoritoScreen(),
+//adicionar rotas
       } ,
     );
   }
