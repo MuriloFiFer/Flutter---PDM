@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_api_geo/View/details_weather_screen.dart';
+import 'package:projeto_api_geo/View/search_screen.dart';
 import 'View/home_screen.dart';
 
 void main() {
@@ -14,9 +16,11 @@ class MyApp extends StatelessWidget {
       title: "Projeto API GEO",
       home: HomeScreen(),
       debugShowCheckedModeBanner: false,
-      routes:{
-//adicionar rotas
-      } ,
+//route
+      routes: {
+        '/search': (context) => const SearchScreen(),
+        '/details': (context) => const DetailsWeatherScreen()
+      },
     );
   }
 }
