@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_api_geo/View/details_weather_screen.dart';
 import 'package:projeto_api_geo/View/search_screen.dart';
+
+
+import 'View/details_weather_screen.dart';
 import 'View/home_screen.dart';
 
 void main() {
@@ -13,14 +15,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Projeto API GEO",
-      home: HomeScreen(),
+      title: "Project API GEO",
+      home: const HomeScreen(),
       debugShowCheckedModeBanner: false,
-//route
-      routes: {
-        '/search': (context) => const SearchScreen(),
-        '/details': (context) => const DetailsWeatherScreen()
-      },
+      routes:{
+        '/search':(context) => const SearchScreen()        
+      } ,
     );
   }
 }

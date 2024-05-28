@@ -15,15 +15,14 @@ class Weather {
       required this.tempMax,
       required this.tempMin});
   //fromJson
-  factory Weather.fromJson(Map<String, dynamic> json) {
+  factory Weather.fromJson(Map<String,dynamic> json){
     return Weather(
-      name: json['name'],
-      main: json['weather'][10]['main'],
-      description: json['weather'][10]['description'],
-      temp: json['main']['temp'],
-      tempMax: json['main']['temp_max'],
-      tempMin: json['main']['temp_min'],  
-    
+      name:json['name'],
+      main:json['weather'][0]['main'],
+      description:json['weather'][0]['description'],
+      temp:json['main']['temp'],
+      tempMax:json['main']['temp_max'],
+      tempMin:json['main']['temp_min']
     );
   }
 }
