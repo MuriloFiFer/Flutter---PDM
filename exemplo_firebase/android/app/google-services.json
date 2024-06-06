@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "902871814728",
+    "project_id": "exemplo-firebase-c13f1",
+    "storage_bucket": "exemplo-firebase-c13f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902871814728:android:7a8b172778e41ef77dbe7d",
+        "android_client_info": {
+          "package_name": "com.br.murilofifer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPuB76sdJF_ovSkzFxWWoPEQ_v9XsVQos"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
