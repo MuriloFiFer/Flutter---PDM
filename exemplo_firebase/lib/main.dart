@@ -1,36 +1,31 @@
+import 'package:exemplo_firebase/firebase_options.dart';
+import 'package:exemplo_firebase/screens/home_screen.dart';
+import 'package:exemplo_firebase/screens/register_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'screens/login_screen.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const MainApp());
+}
 
-import '../models/todolist.dart';
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
 
-class TodolistController{
-  //atributo list
-  List<Todolist> _list = [];
-  List<Todolist> get list => _list;
-
-  //conectar ao firebase FireStore
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-  //métodos
-  //add
-  Future<void> add(Todolist todolist) async{
-    await _firestore.collection('todolist').add(todolist.toMap());
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: const HomeScreen(),
+      debugShowCheckedModeBanner: false,
+      routes: {
+        '/home':(context)=> const HomeScreen(),
+        '/login':(context) => const LoginScreen(),
+        '/register':(context) => const RegisterScreen(),
+      },
+    );
   }
-  //deletar
-  Future<void> delete(String id) async{
-    await _firestore.collection('todolist').doc(id).delete();
-  }
-  //fetch list
-  Future<List<Todolist>> fetchList(String userId) async{
-    final result = await _firestore.collection(
-      'todolist')
-      .where(
-        'userId',
-         isEqualTo: userId)
-         .get();
-    _list = result.docs.map((doc) => Todolist.fromMap(doc.data())).toList();
-    return _list;    
-  }
-
-
 }

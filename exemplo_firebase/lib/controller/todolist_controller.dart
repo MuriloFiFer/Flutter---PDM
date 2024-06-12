@@ -17,17 +17,23 @@ class TodolistController{
   }
   //deletar
   Future<void> delete(String id) async{
+    print(id);
     await _firestore.collection('todolist').doc(id).delete();
+    print("ok");
   }
   //fetch list
   Future<List<Todolist>> fetchList(String userId) async{
-    final result = await _firestore.collection(
+    final QuerySnapshot result = await _firestore.collection(
       'todolist')
       .where(
-        'userId',
+        'userid',
          isEqualTo: userId)
          .get();
-    _list = result.docs.map((doc) => Todolist.fromMap(doc.data())).toList();
+    print(result.size);
+    List<dynamic> convert = result.docs as List;
+    print(convert.length);
+    _list = convert.map((doc) => Todolist.fromMap(doc.data())).toList();
+    print(_list.length);
     return _list;    
   }
 

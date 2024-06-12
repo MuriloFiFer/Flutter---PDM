@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Todolist {
   //atributos
   final String id;
@@ -22,7 +24,7 @@ class Todolist {
       id: map['id'],
       titulo: map['titulo'],
       userId: map['userid'],
-      timestamp: map['timestamp'],
+      timestamp: (map['timestamp'] as Timestamp).toDate(),
     );
   }
 }
