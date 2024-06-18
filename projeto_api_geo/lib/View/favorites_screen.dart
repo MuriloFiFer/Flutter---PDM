@@ -33,7 +33,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
-            final cities = snapshot.data!;
+            final cities = snapshot.data as List<City>;
             if (cities.isEmpty) {
               return Center(child: Text("Sem Cidades Favoritas"));
             } else {
