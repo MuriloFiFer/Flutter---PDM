@@ -52,7 +52,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       );
                     },
                     trailing: IconButton(
-                      icon: Icon(Icons.delete),
+                      icon: Icon(Icons.favorite_border), // Ícone do coração vazio
                       onPressed: () {
                         _deleteCity(city.cityName);
                       },
