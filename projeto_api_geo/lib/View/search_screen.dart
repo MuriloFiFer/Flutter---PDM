@@ -61,9 +61,9 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
             Expanded(
-              child: FutureBuilder(
+              child: FutureBuilder<List<City>>(
                 future: _dbController.listCities(),
-                builder: (context, AsyncSnapshot<List<City>> snapshot) {
+                builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
@@ -112,7 +112,7 @@ class _SearchScreenState extends State<SearchScreen> {
           duration: Duration(seconds: 1),
         ),
       );
-      setState(() {});
+      _refreshCityList();
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -130,7 +130,15 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Future<void> _deleteCity(String city) async {
-    await _dbController.deleteCity(city);
+    try {
+      await _dbController.deleteCity(city);
+      _refreshCityList();
+    } catch (e) {
+      print("Erro ao excluir cidade: $e");
+    }
+  }
+
+  Future<void> _refreshCityList() async {
     setState(() {});
   }
 }

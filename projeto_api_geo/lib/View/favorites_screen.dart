@@ -25,9 +25,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       appBar: AppBar(
         title: const Text("Favoritos"),
       ),
-      body: FutureBuilder(
+      body: FutureBuilder<List<City>>(
         future: _dbController.listCities(),
-        builder: (context, AsyncSnapshot<List<City>> snapshot) {
+        builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
@@ -35,7 +35,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           } else {
             final cities = snapshot.data!;
             if (cities.isEmpty) {
-              return const Center(child: Text("Sem cidades favoritas"));
+              return Center(child: Text("Sem Cidades Favoritas"));
             } else {
               return ListView.builder(
                 itemCount: cities.length,
@@ -68,7 +68,15 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   }
 
   Future<void> _deleteCity(String city) async {
-    await _dbController.deleteCity(city);
+    try {
+      await _dbController.deleteCity(city);
+      _refreshCityList();
+    } catch (e) {
+      print("Erro ao excluir cidade: $e");
+    }
+  }
+
+  Future<void> _refreshCityList() async {
     setState(() {});
   }
 }
