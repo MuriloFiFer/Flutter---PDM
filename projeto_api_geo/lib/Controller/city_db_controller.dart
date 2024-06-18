@@ -19,4 +19,6 @@ class CityDbController {
   Future<void> addCities(City city) async{
     _dbService.insertCity(city);   
   }
+
+  deleteCity(String city) {}
 }

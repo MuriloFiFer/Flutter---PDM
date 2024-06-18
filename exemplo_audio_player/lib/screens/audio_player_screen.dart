@@ -13,12 +13,23 @@ class AudioPlayerScreen extends StatefulWidget {
 class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
   late AudioPlayer _audioPlayer;
   bool _isPlaying = false;
-  
+  Duration _duration = Duration.zero;
+  Duration _position = Duration.zero;
+
   @override
   void initState() {
     super.initState();
     _audioPlayer = AudioPlayer();
-    // _audioPlayer.setSource(UrlSource(widget.audio.url));
+    _audioPlayer.onDurationChanged.listen((duration) {
+      setState(() {
+        _duration = duration;
+      });
+    });
+    _audioPlayer.onPositionChanged.listen((position) {
+      setState(() {
+        _position = position;
+      });
+    });
   }
 
   @override
@@ -26,11 +37,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
     _audioPlayer.dispose();
     super.dispose();
   }
-  
-  @override
-  void setState(fn) {
-    super.setState(fn);
-  }
+
   void _playPause() {
     if (_isPlaying) {
       _audioPlayer.pause();
@@ -45,6 +52,10 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
     }
   }
 
+  void _seekTo(double seconds) {
+    final newPosition = Duration(seconds: seconds.toInt());
+    _audioPlayer.seek(newPosition);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,15 +68,31 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(
-              icon: Icon(_isPlaying? Icons.pause : Icons.play_arrow),
+              icon: Icon(_isPlaying ? Icons.pause : Icons.play_arrow),
               iconSize: 64.0,
-              onPressed: () {
-                _playPause();
+              onPressed: _playPause,
+            ),
+            Text(
+              _isPlaying ? 'Reproduzindo' : 'Pausado',
+              style: const TextStyle(fontSize: 20),
+            ),
+            StreamBuilder<Duration>(
+              stream: _audioPlayer.onPositionChanged,
+              builder: (context, snapshot) {
+                final position = snapshot.data ?? Duration.zero;
+                return Slider(
+                  min: 0.0,
+                  max: _duration.inSeconds.toDouble(),
+                  value: position.inSeconds.toDouble(),
+                  onChanged: (value) {
+                    _seekTo(value);
+                  },
+                );
               },
             ),
             Text(
-              _isPlaying? 'Reproduzindo':'Pausado',
-              style: const TextStyle(fontSize: 20),
+              '${_position.toString().split('.').first} / ${_duration.toString().split('.').first}',
+              style: const TextStyle(fontSize: 16),
             ),
           ],
         ),
@@ -73,5 +100,3 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
     );
   }
 }
-
-  
