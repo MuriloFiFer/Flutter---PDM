@@ -104,8 +104,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Future<void> _findCity(String city) async {
     if (await _controller.findCity(city)) {
-      City cidade = City(cityName: city, favoriteCities: 0);
-      _dbController.addCities(cidade);
+      City cidade = City(cityName: city, favoriteCities: 0); // Inicia como cidade pesquisada
+      _dbController.addCities(cidade); // Adiciona à lista de pesquisas
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Found City!"),

@@ -1,7 +1,7 @@
 class City {
   //atributos
   final String cityName;
-  final int favoriteCities;
+  late final int favoriteCities;
   //cosntrutor
   City({required this.cityName, required this.favoriteCities});
   //metodos

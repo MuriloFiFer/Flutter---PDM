@@ -70,4 +70,8 @@ class CityDataBaseService {
     }  
 }
 
+  getAllFavoriteCities() {}
+
+  getCity(String cityName) {}
+
 }
